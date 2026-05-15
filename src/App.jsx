@@ -18,7 +18,7 @@ const FRANK_GREETING = {
   id: 'greeting',
   role: 'assistant',
   text:
-    "G'day. I'm Frank. Drop a screenshot or paste the listing text and I'll have a proper look — tell you what I'd be checking, what's worth asking the seller, and whether the price stacks up.",
+    "G'day. I'm Frank. Drop a screenshot of any used car listing — Carsales, Facebook Marketplace, Gumtree, wherever — and I'll tell you what I'd be checking, what's worth asking the seller, and whether the price stacks up.",
 }
 
 const PAYWALL_PROMPT = {
@@ -223,9 +223,12 @@ export default function App() {
     }
   }
 
+  const hasUserMessages = messages.some((m) => m.role === 'user')
+
   return (
     <div className="flex h-screen flex-col bg-ink" style={{ height: '100dvh' }}>
-      <header className="border-b border-line">
+      {/* Header */}
+      <header className="border-b border-line shadow-[0_1px_0_rgba(30,30,34,0.8)]">
         <div className="mx-auto flex max-w-3xl items-center gap-3 px-4 py-3 sm:gap-4 sm:px-6 sm:py-4">
           <img
             src="/frank.jpg"
@@ -233,7 +236,7 @@ export default function App() {
               e.currentTarget.src = '/frank-placeholder.svg'
             }}
             alt="Frank"
-            className="h-12 w-12 rounded-full border border-line object-cover sm:h-14 sm:w-14"
+            className="h-12 w-12 flex-shrink-0 rounded-full object-cover ring-2 ring-amber/50 ring-offset-2 ring-offset-ink sm:h-14 sm:w-14"
           />
           <div className="min-w-0">
             <h1 className="font-display text-2xl tracking-wide text-amber sm:text-3xl">
@@ -242,18 +245,57 @@ export default function App() {
             <p className="truncate font-mono text-[11px] uppercase tracking-widest text-muted sm:text-xs">
               25 years on the tools · here to help
             </p>
+            <p className="mt-0.5 text-[11px] text-muted/70 sm:text-xs">
+              Screenshot a listing. Get an honest assessment. A$4.75.
+            </p>
           </div>
         </div>
       </header>
 
+      {/* How It Works strip — collapses once the user sends their first message */}
+      <div
+        className={`overflow-hidden transition-all duration-500 ease-in-out ${
+          hasUserMessages ? 'max-h-0 opacity-0' : 'max-h-24 opacity-100'
+        }`}
+      >
+        <div className="mx-auto max-w-3xl px-4 py-2 sm:px-6">
+          <div className="flex flex-wrap items-center justify-center gap-x-3 gap-y-1 rounded-xl border border-line/50 bg-[#161412] px-4 py-2.5 text-xs text-muted">
+            <span><span className="text-amber">📸</span>{' '}Screenshot the listing</span>
+            <span className="text-muted/40">→</span>
+            <span><span className="text-amber">🔧</span>{' '}Frank analyses it</span>
+            <span className="text-muted/40">→</span>
+            <span><span className="text-amber">✅</span>{' '}You decide</span>
+          </div>
+        </div>
+      </div>
+
+      {/* Chat area */}
       <main className="flex-1 overflow-y-auto">
-        <div className="mx-auto max-w-3xl">
-          <ChatWindow messages={messages} isTyping={isTyping} />
-          {errorMsg && (
-            <p className="px-6 pb-2 text-center text-xs text-red-400">{errorMsg}</p>
-          )}
+        <div className="mx-auto max-w-3xl sm:px-4 sm:pt-3">
+          <div className="sm:rounded-xl sm:border sm:border-line/50 bg-[#0f0e0d]">
+            <ChatWindow messages={messages} isTyping={isTyping} />
+            {errorMsg && (
+              <p className="px-6 pb-2 text-center text-xs text-red-400">{errorMsg}</p>
+            )}
+          </div>
         </div>
       </main>
+
+      {/* Paywall CTA — visible when phase is PAYWALL and checkout is dismissed */}
+      {chat.phase === PHASES.PAYWALL && (
+        <div className="mx-auto w-full max-w-3xl px-4 pb-2 sm:px-6">
+          <div className="rounded-xl border border-amber/20 bg-[#1c1917] px-4 py-3 text-center">
+            <p className="mb-3 text-sm text-body">I've given you the early read. Want the full breakdown — model issues, recalls, price check, and my verdict?</p>
+            <button
+              onClick={() => setCheckoutOpen(true)}
+              className="paywall-cta-btn rounded-xl bg-amber px-6 py-3 text-base font-semibold text-ink transition-colors hover:bg-amber-dim"
+            >
+              Get Full Report — A$4.75
+            </button>
+            <p className="mt-2 text-[11px] text-muted">Stripe secure payment · No account needed</p>
+          </div>
+        </div>
+      )}
 
       <ChatInput
         onSend={handleSend}

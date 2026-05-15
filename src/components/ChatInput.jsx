@@ -105,7 +105,7 @@ export default function ChatInput({ onSend, disabled, placeholder }) {
       onDrop={onDrop}
       onDragOver={onDragOver}
       onDragLeave={() => setDragOver(false)}
-      className={`sticky bottom-0 z-20 border-t bg-ink/95 backdrop-blur supports-[backdrop-filter]:bg-ink/80 ${
+      className={`sticky bottom-0 z-20 border-t shadow-[0_-4px_20px_rgba(0,0,0,0.4)] bg-ink/95 backdrop-blur supports-[backdrop-filter]:bg-ink/80 ${
         dragOver ? 'border-amber' : 'border-line'
       }`}
     >
@@ -140,7 +140,7 @@ export default function ChatInput({ onSend, disabled, placeholder }) {
               disabled={disabled}
               title="Attach screenshot"
               aria-label="Attach image"
-              className="rounded-xl border border-line bg-line/40 p-2 text-muted transition hover:text-amber disabled:opacity-40"
+              className="flex min-h-[44px] min-w-[44px] items-center justify-center rounded-xl border border-line bg-line/40 text-muted transition hover:text-amber disabled:opacity-40"
             >
               <PaperclipIcon />
             </button>
@@ -150,7 +150,7 @@ export default function ChatInput({ onSend, disabled, placeholder }) {
               disabled={disabled}
               title="Take photo"
               aria-label="Take a photo with your camera"
-              className="rounded-xl border border-line bg-line/40 p-2 text-muted transition hover:text-amber disabled:opacity-40 sm:hidden"
+              className="flex min-h-[44px] min-w-[44px] items-center justify-center rounded-xl border border-line bg-line/40 text-amber transition hover:text-amber-dim disabled:opacity-40 sm:hidden"
             >
               <CameraIcon />
             </button>
@@ -163,7 +163,7 @@ export default function ChatInput({ onSend, disabled, placeholder }) {
             onChange={(e) => setText(e.target.value)}
             onKeyDown={onKeyDown}
             onPaste={onPaste}
-            placeholder={placeholder || 'Tell Frank about the listing…'}
+            placeholder={placeholder || 'Ask Frank a question...'}
             disabled={disabled}
             className="flex-1 resize-none rounded-2xl border border-line bg-line/40 px-4 py-3 text-[15px] text-body placeholder:text-muted focus:border-amber focus:outline-none disabled:opacity-50"
           />
@@ -178,7 +178,7 @@ export default function ChatInput({ onSend, disabled, placeholder }) {
           </button>
         </div>
         <p className="mt-1 hidden text-[11px] text-muted sm:block">
-          Paste a screenshot, drag one in, or tap the clip. Listings stay in memory only.
+          Drop a screenshot, paste one in, or tap the clip to snap a photo. Listings stay in memory only.
         </p>
       </div>
 
