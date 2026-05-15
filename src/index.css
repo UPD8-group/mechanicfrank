@@ -69,3 +69,14 @@ body {
 .bubble-in {
   animation: bubbleIn 220ms ease-out;
 }
+
+/* Print — hide the app, show only the report portal */
+@media print {
+  #root { display: none !important; }
+  .no-print { display: none !important; }
+  #print-report {
+    position: static !important;
+    overflow: visible !important;
+    background: white;
+  }
+}

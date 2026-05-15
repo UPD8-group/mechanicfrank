@@ -3,6 +3,7 @@ import ChatWindow from './components/ChatWindow.jsx'
 import ChatInput from './components/ChatInput.jsx'
 import Disclaimer from './components/Disclaimer.jsx'
 import StripeCheckout from './components/StripeCheckout.jsx'
+import PrintReport from './components/PrintReport.jsx'
 import {
   initialState,
   reduce,
@@ -92,6 +93,8 @@ export default function App() {
   const [isTyping, setIsTyping] = useState(false)
   const [errorMsg, setErrorMsg] = useState('')
   const [checkoutOpen, setCheckoutOpen] = useState(false)
+  const [reportData, setReportData] = useState(null)
+  const [showPrintView, setShowPrintView] = useState(false)
 
   const addMessage = useCallback((msg) => {
     setMessages((prev) => [...prev, { id: crypto.randomUUID(), ...msg }])
@@ -123,6 +126,9 @@ export default function App() {
       return
     }
 
+    // Store report data so the print view can access it.
+    setReportData(report)
+
     // Render 8 sections as separate bubbles, 1-2s typing delay between each.
     const bubbles = reportToBubbles(report)
     for (let i = 0; i < bubbles.length; i++) {
@@ -137,6 +143,11 @@ export default function App() {
       role: 'assistant',
       text:
         "That's the lot. Got 10 follow-up questions on the house — fire away.",
+    })
+    await sleep(400)
+    addMessage({
+      role: 'system',
+      text: '— Save your report now · tap "Save Report" below · once you leave this page it\'s gone —',
     })
     dispatch({ type: 'REPORT_DELIVERED' })
   }
@@ -281,6 +292,18 @@ export default function App() {
         </div>
       </main>
 
+      {/* Save Report button — visible after report is delivered */}
+      {reportData && (chat.phase === PHASES.FOLLOWUP || chat.phase === PHASES.DONE) && (
+        <div className="mx-auto w-full max-w-3xl px-4 pb-2 sm:px-6">
+          <button
+            onClick={() => setShowPrintView(true)}
+            className="w-full rounded-xl border border-amber/40 bg-[#1c1917] py-3 text-sm font-semibold text-amber transition-colors hover:bg-[#2a2018]"
+          >
+            Save Report — Print or PDF ↗
+          </button>
+        </div>
+      )}
+
       {/* Paywall CTA — visible when phase is PAYWALL and checkout is dismissed */}
       {chat.phase === PHASES.PAYWALL && (
         <div className="mx-auto w-full max-w-3xl px-4 pb-2 sm:px-6">
@@ -312,6 +335,10 @@ export default function App() {
         }}
         onComplete={handlePaymentComplete}
       />
+
+      {showPrintView && reportData && (
+        <PrintReport report={reportData} onClose={() => setShowPrintView(false)} />
+      )}
     </div>
   )
 }
