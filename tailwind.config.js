@@ -7,16 +7,18 @@ export default {
   theme: {
     extend: {
       colors: {
-        teal: {
-          DEFAULT: '#0B6E78',
-          light: '#0d8a96',
-          dark: '#085860',
+        ink: '#0c0a09',
+        amber: {
+          DEFAULT: '#fbbf24',
+          dim: '#d99e1c',
         },
-        cream: '#FFF8EE',
-        charcoal: '#1A1A1A',
-        sunset: '#F6A86B',
+        line: '#1e1e22',
+        muted: '#a8a29e',
+        body: '#e7e5e4',
       },
       fontFamily: {
+        display: ['Anton', 'system-ui', 'sans-serif'],
+        mono: ['"JetBrains Mono"', 'ui-monospace', 'monospace'],
         sans: ['Inter', 'system-ui', 'sans-serif'],
       },
     },

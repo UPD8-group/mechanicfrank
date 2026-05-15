@@ -2,20 +2,60 @@
 @tailwind components;
 @tailwind utilities;
 
-@layer base {
-  html {
-    scroll-behavior: smooth;
-  }
-
-  body {
-    background-color: #FFF8EE;
-    color: #1A1A1A;
-    font-family: 'Inter', system-ui, sans-serif;
-  }
+:root {
+  color-scheme: dark;
 }
 
-@layer utilities {
-  .text-balance {
-    text-wrap: balance;
-  }
+html, body, #root {
+  height: 100%;
+}
+
+body {
+  background-color: #0c0a09;
+  color: #e7e5e4;
+  font-family: 'Inter', system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* Subtle scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+::-webkit-scrollbar-track {
+  background: #0c0a09;
+}
+::-webkit-scrollbar-thumb {
+  background: #1e1e22;
+  border-radius: 6px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #2a2a30;
+}
+
+/* Typing indicator dots */
+@keyframes typingBounce {
+  0%, 60%, 100% { transform: translateY(0); opacity: 0.4; }
+  30% { transform: translateY(-4px); opacity: 1; }
+}
+.typing-dot {
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  margin: 0 2px;
+  border-radius: 50%;
+  background: #a8a29e;
+  animation: typingBounce 1.2s infinite ease-in-out;
+}
+.typing-dot:nth-child(2) { animation-delay: 0.18s; }
+.typing-dot:nth-child(3) { animation-delay: 0.36s; }
+
+/* Message bubble entrance */
+@keyframes bubbleIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.bubble-in {
+  animation: bubbleIn 220ms ease-out;
 }

@@ -1,18 +1,21 @@
 {
-  "name": "saygday-marketing",
+  "name": "mechanicfrank",
   "private": true,
   "version": "0.1.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
+    "dev": "netlify dev",
+    "dev:vite": "vite",
     "build": "vite build",
     "preview": "vite preview"
   },
   "dependencies": {
-    "lucide-react": "^0.441.0",
+    "@anthropic-ai/sdk": "^0.30.1",
+    "@stripe/react-stripe-js": "^2.9.0",
+    "@stripe/stripe-js": "^4.10.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
-    "react-router-dom": "^6.26.2"
+    "stripe": "^17.5.0"
   },
   "devDependencies": {
     "@vitejs/plugin-react": "^4.3.1",

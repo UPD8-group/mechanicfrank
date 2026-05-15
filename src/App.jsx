@@ -1,27 +1,10 @@
-import Nav from './components/Nav'
-import Hero from './components/Hero'
-import Problem from './components/Problem'
-import HowItWorks from './components/HowItWorks'
-import Features from './components/Features'
-import Pricing from './components/Pricing'
-import FAQ from './components/FAQ'
-import Waitlist from './components/Waitlist'
-import Footer from './components/Footer'
-
 export default function App() {
   return (
-    <div className="min-h-screen">
-      <Nav />
-      <main>
-        <Hero />
-        <Problem />
-        <HowItWorks />
-        <Features />
-        <Pricing />
-        <FAQ />
-        <Waitlist />
-      </main>
-      <Footer />
+    <div className="min-h-screen flex items-center justify-center">
+      <div className="text-center">
+        <h1 className="font-display text-5xl text-amber tracking-wide">MECHANIC FRANK</h1>
+        <p className="mt-3 text-muted font-mono text-sm">scaffold ready</p>
+      </div>
     </div>
   )
 }
