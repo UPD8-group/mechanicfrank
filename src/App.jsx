@@ -1,7 +1,13 @@
-import { useState } from 'react'
+import { useReducer, useState } from 'react'
 import ChatWindow from './components/ChatWindow.jsx'
 import ChatInput from './components/ChatInput.jsx'
 import Disclaimer from './components/Disclaimer.jsx'
+import {
+  initialState,
+  reduce,
+  inputDisabled,
+  inputPlaceholder,
+} from './lib/chat-state.js'
 
 const FRANK_GREETING = {
   id: 'greeting',
@@ -12,12 +18,15 @@ const FRANK_GREETING = {
 
 export default function App() {
   const [messages, setMessages] = useState([FRANK_GREETING])
+  const [chat, dispatch] = useReducer(reduce, undefined, initialState)
+  const [isTyping, setIsTyping] = useState(false)
 
   function handleSend({ text }) {
     setMessages((prev) => [
       ...prev,
       { id: crypto.randomUUID(), role: 'user', text },
     ])
+    dispatch({ type: 'USER_MESSAGE_SENT' })
   }
 
   return (
@@ -45,11 +54,15 @@ export default function App() {
 
       <main className="flex-1 overflow-y-auto">
         <div className="mx-auto max-w-3xl">
-          <ChatWindow messages={messages} isTyping={false} />
+          <ChatWindow messages={messages} isTyping={isTyping} />
         </div>
       </main>
 
-      <ChatInput onSend={handleSend} />
+      <ChatInput
+        onSend={handleSend}
+        disabled={inputDisabled(chat)}
+        placeholder={inputPlaceholder(chat)}
+      />
       <Disclaimer />
     </div>
   )
