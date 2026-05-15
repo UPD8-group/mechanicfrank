@@ -84,8 +84,8 @@ export function inputPlaceholder(state) {
   switch (state.phase) {
     case PHASES.TEASER:
       return state.teaserUserCount === 0
-        ? 'Paste the listing or drop a screenshot…'
-        : 'Tell Frank more, or ask a question…'
+        ? 'Drop a screenshot to get started…'
+        : 'Ask Frank a question…'
     case PHASES.PAYWALL:
       return 'Finish checkout to keep the chat going…'
     case PHASES.PAID:

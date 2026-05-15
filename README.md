@@ -1,6 +1,6 @@
 # Mechanic Frank
 
-AI-powered used-car listing analyser for Australian buyers. The whole product is a single-page chat with **Frank**, a 25-year Australian workshop mechanic. Free teaser, then **A$4.75** for a full report via Stripe Embedded Checkout.
+AI-powered used-car listing analyser for Australian buyers. Drop a screenshot of any used car listing and **Frank**, a 25-year Australian workshop mechanic, tells you what to check, what to ask, and whether the price is fair. Free teaser, then **A$4.75** for a full report via Stripe Embedded Checkout.
 
 **Privacy:** listings and images are never stored. They live in memory only long enough to be sent to Anthropic, then they're discarded.
 
@@ -85,7 +85,7 @@ Never commit a real key.
 ### Smoke test on the live site
 
 1. Open the URL — Frank's greeting visible.
-2. Paste any used-car listing (Carsales URL or screenshot).
+2. Drop or paste a screenshot of any used car listing (Carsales, Facebook Marketplace, Gumtree, etc.).
 3. Send five user messages — paywall + Embedded Checkout should appear.
 4. Pay with the Stripe test card `4242 4242 4242 4242`, any future expiry, any CVC.
 5. The 8-section report streams in as separate bubbles.

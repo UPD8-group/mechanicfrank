@@ -163,7 +163,7 @@ export default function ChatInput({ onSend, disabled, placeholder }) {
             onChange={(e) => setText(e.target.value)}
             onKeyDown={onKeyDown}
             onPaste={onPaste}
-            placeholder={placeholder || 'Tell Frank about the listing…'}
+            placeholder={placeholder || 'Ask Frank a question...'}
             disabled={disabled}
             className="flex-1 resize-none rounded-2xl border border-line bg-line/40 px-4 py-3 text-[15px] text-body placeholder:text-muted focus:border-amber focus:outline-none disabled:opacity-50"
           />
@@ -178,7 +178,7 @@ export default function ChatInput({ onSend, disabled, placeholder }) {
           </button>
         </div>
         <p className="mt-1 hidden text-[11px] text-muted sm:block">
-          Paste a screenshot, drag one in, or tap the clip. Listings stay in memory only.
+          Drop a screenshot, paste one in, or tap the clip to snap a photo. Listings stay in memory only.
         </p>
       </div>
 

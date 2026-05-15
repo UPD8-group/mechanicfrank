@@ -18,7 +18,7 @@ const FRANK_GREETING = {
   id: 'greeting',
   role: 'assistant',
   text:
-    "G'day. I'm Frank. Drop a screenshot or paste the listing text and I'll have a proper look — tell you what I'd be checking, what's worth asking the seller, and whether the price stacks up.",
+    "G'day. I'm Frank. Drop a screenshot of any used car listing — Carsales, Facebook Marketplace, Gumtree, wherever — and I'll tell you what I'd be checking, what's worth asking the seller, and whether the price stacks up.",
 }
 
 const PAYWALL_PROMPT = {
